@@ -4,7 +4,7 @@
 修改以下变量即可。
 ================
 ```
-private static String year="2012";//入学年份，哪年入取填哪年
+private static String year="2012";//入学年份，哪年录取填哪年
 private static String majorNumber="0507";//专业代号，四位数
 private static int startClassNumber=1;//起始查找班级，可以不用动
 private static int startStudentNumber=1;//起始查找学号，可以不用动
