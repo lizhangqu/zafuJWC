@@ -21,7 +21,7 @@ public class Main {
 	private static int startStudentNumber=1;//起始学号
 	private static int endClassNumber=8;//结束班级
 	private static int endStudentNumber=30;//结束学号
-	private static String idCard="lizhangqu0504";//身份证号
+	private static String idCard="*****";//身份证号
 	private static boolean hasFound=false;
 	public static void main(String[] args) {
 		client.setCookieHandler(new CookieManager(new PersistentCookieStore(), CookiePolicy.ACCEPT_ALL));
