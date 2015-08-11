@@ -15,36 +15,31 @@ import com.squareup.okhttp.Response;
 
 public class Main {
 	private static final OkHttpClient client = new OkHttpClient();
-	private static String year="2012";//入学年份
-	private static String majorNumber="0507";//专业代号
-	private static int startClassNumber=6;//起始班级
-	private static int startStudentNumber=1;//起始学号
-	private static int endClassNumber=8;//结束班级
-	private static int endStudentNumber=30;//结束学号
-	private static String idCard="*****";//身份证号
-	private static boolean hasFound=false;
+	private static String year="2012";//入学年份，哪年录取填哪年
+	private static String majorNumber="0507";//专业代号，四位数
+	private static int startClassNumber=1;//起始查找班级，可以不用动
+	private static int startStudentNumber=1;//起始查找学号，可以不用动
+	private static int endClassNumber=8;//结束班级，可以看去年专业班级数，计算机是4个
+	private static int endStudentNumber=30;//结束学号，可以不用动，一般为30
+	private static String idCard="******";//身份证号
 	public static void main(String[] args) {
 		client.setCookieHandler(new CookieManager(new PersistentCookieStore(), CookiePolicy.ACCEPT_ALL));
 		String number=null;
-		int clazz=0;
-		int student=0;
+		boolean flag=false;
 		try {
 			for (int i = startClassNumber; i <=endClassNumber; i++) {
 				for (int j = startStudentNumber; j <=endStudentNumber; j++) {
-					clazz=i;
-					student=j;
-					number=year+majorNumber+String.format("%02d", clazz)+String.format("%02d", student);
+					number=String.format("%s%s%02d%02d", year,majorNumber,i,j);
 					//拼接学号
-					boolean flag=login(number,idCard);
+					flag=login(number,idCard);
 					if(flag){
 						System.out.println("找到了，您的学号为："+number);
-						hasFound=true;
 						break;
 					}else{
 						System.out.println("正在查找:"+number);
 					}
 				}
-				if(hasFound){
+				if(flag){
 					break;
 				}
 			}
