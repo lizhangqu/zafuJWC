@@ -21,7 +21,7 @@ public class Main {
 	private static int startStudentNumber=1;//起始学号
 	private static int endClassNumber=8;//结束班级
 	private static int endStudentNumber=30;//结束学号
-	private static String idCard="***";//身份证号
+	private static String idCard="lizhangqu0504";//身份证号
 	private static boolean hasFound=false;
 	public static void main(String[] args) {
 		client.setCookieHandler(new CookieManager(new PersistentCookieStore(), CookiePolicy.ACCEPT_ALL));
@@ -79,9 +79,11 @@ public class Main {
         .build();
 		Response execute = client.newCall(login).execute();
 		String result=execute.body().string();
-		Document parse = Jsoup.parse(result);
-		String trim = parse.select("a#likTc").text().trim();
-		return trim!=null&&trim.equals("退出");
+		//返回结果。源码中包含退出则登录成功
+		boolean isLoginOldStudent= result!=null&&result.contains("退出");
+		//新生第一次登录的界面是修改密码的界面
+		boolean isLoginNewStudent=result.contains("确认新密码");
+		return isLoginNewStudent||isLoginOldStudent;
 	}
 	
 	
